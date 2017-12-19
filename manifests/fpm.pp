@@ -109,10 +109,10 @@ class php::fpm (
       and versioncmp($facts['os']['release']['full'], '14') >= 0
       and versioncmp($facts['os']['release']['full'], '16') < 0) {
     if ($service_enable) {
-      $fpm_override = 'reload signal USR2'
+      $fpm_override = "reload signal USR2\numask 002"
     }
     else {
-      $fpm_override = "reload signal USR2\nmanual"
+      $fpm_override = "reload signal USR2\nmanual\numask 002"
     }
     file { "/etc/init/${::php::fpm::service::service_name}.override":
       content => $fpm_override,
